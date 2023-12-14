@@ -1,4 +1,5 @@
 import React, { useState, useRef, ChangeEvent } from "react";
+import toast from "react-hot-toast";
 import { LuCamera } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
@@ -42,6 +43,20 @@ export default function AuthenticationForm(props: AuthenticationFormProps) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!email.trim()) {
+      toast.error("Please enter an email address.");
+      return;
+    }
+    if (!fullName.trim() && extraInput) {
+      toast.error("Please enter your full name.");
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Password needs a minimum of 6 characters.");
+      return;
+    }
+
     onSubmit(email, password, fullName, file ?? undefined);
   };
 
