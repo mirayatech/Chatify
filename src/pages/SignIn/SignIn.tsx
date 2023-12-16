@@ -17,12 +17,12 @@ export default function SignIn() {
   return (
     <AuthenticationForm
       text={"Sign In"}
-      withText={true}
       extraInput={false}
       buttonText={"Sign In"}
       linkText={"Don't have an account? Sign up here."}
       onSubmit={handleSignIn}
       linkUrl={"/signup"}
+      verifyPassword={false}
     />
   );
 }
