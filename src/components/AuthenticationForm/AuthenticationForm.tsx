@@ -1,18 +1,13 @@
-import React, { useState, useRef, ChangeEvent } from "react";
-import { LuCamera } from "react-icons/lu";
+import React, { useState } from "react";
 import {
   Button,
   Form,
   FormContainer,
   FormTitle,
-  ChangeImageButton,
   Input,
   StyledLink,
   InputWrapper,
   Label,
-  FilePickerContainer,
-  ImagePreview,
-  ImagePreviewContainer,
 } from "./Style";
 import toast from "react-hot-toast";
 import { useUserStore } from "../../library";
@@ -24,11 +19,12 @@ type AuthenticationFormProps = {
   buttonText: string;
   linkText: string;
   linkUrl: string;
-  withText: boolean;
+  verifyPassword: boolean;
+
   onSubmit: (
     email: string,
     password: string,
-    fullName?: string,
+    username?: string,
     file?: File
   ) => void;
 };
@@ -38,10 +34,8 @@ export default function AuthenticationForm(props: AuthenticationFormProps) {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
-  const [fullName, setFullName] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const filePickerRef = useRef<HTMLInputElement>(null);
+  const [username, setUsername] = useState("");
+
   const { currentUser } = useUserStore();
   const {
     onSubmit,
@@ -50,21 +44,8 @@ export default function AuthenticationForm(props: AuthenticationFormProps) {
     text,
     linkText,
     linkUrl,
-    withText,
+    verifyPassword,
   } = props;
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    const selectedFile = event.target.files?.[0];
-
-    if (selectedFile) {
-      reader.readAsDataURL(selectedFile);
-      reader.onload = () => {
-        setPreview(reader.result as string);
-        setFile(selectedFile);
-      };
-    }
-  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -73,7 +54,7 @@ export default function AuthenticationForm(props: AuthenticationFormProps) {
       toast.error("Please enter an email address.");
       return;
     }
-    if (!fullName.trim() && extraInput) {
+    if (!username.trim() && extraInput) {
       toast.error("Please enter your full name.");
       return;
     }
@@ -81,71 +62,32 @@ export default function AuthenticationForm(props: AuthenticationFormProps) {
       toast.error("Password needs a minimum of 6 characters.");
       return;
     }
-    if (password !== repeatPassword) {
+    if (verifyPassword && password !== repeatPassword) {
       toast.error("Passwords do not match.");
       return;
     }
-
-    onSubmit(email, password, fullName, file ?? undefined);
+    onSubmit(email, password, username);
   };
 
   if (currentUser) return <Navigate to="/" />;
 
   return (
     <FormContainer>
-      {withText && <FormTitle>{text}</FormTitle>}
+      <FormTitle>{text}</FormTitle>
 
       <Form onSubmit={handleSubmit}>
         {extraInput && (
-          <>
-            {preview ? (
-              <ImagePreviewContainer>
-                <ImagePreview tabIndex={0}>
-                  <img src={preview} alt="Profile Preview" />
-                </ImagePreview>
-                <ChangeImageButton
-                  type="button"
-                  aria-label="Change your profile picture"
-                  onClick={() => setPreview(null)}
-                >
-                  Change
-                </ChangeImageButton>
-              </ImagePreviewContainer>
-            ) : (
-              <FilePickerContainer
-                tabIndex={0}
-                role="button"
-                aria-label="Select your profile picture"
-                onClick={() => filePickerRef.current?.click()}
-              >
-                <label htmlFor="fileupload" aria-hidden="true">
-                  <LuCamera />
-                </label>
-                <Input
-                  type="file"
-                  name="file"
-                  id="fileupload"
-                  ref={filePickerRef}
-                  accept="image/jpeg, image/png"
-                  aria-label="Choose File"
-                  onChange={handleFileChange}
-                  hidden
-                />
-              </FilePickerContainer>
-            )}
-            <InputWrapper>
-              <Label htmlFor="fullName">Full Name</Label>
-              <Input
-                type="text"
-                id="fullName"
-                placeholder="Full Name"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-              />
-            </InputWrapper>
-          </>
+          <InputWrapper>
+            <Label htmlFor="username">Username</Label>
+            <Input
+              type="text"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </InputWrapper>
         )}
-
         <InputWrapper>
           <Label htmlFor="email">Email Address</Label>
           <Input

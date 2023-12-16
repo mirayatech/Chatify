@@ -1,20 +1,14 @@
 import AuthenticationForm from "../../components/AuthenticationForm/AuthenticationForm";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import toast from "react-hot-toast";
-import {
-  firebaseAuth,
-  firebaseFirestore,
-  firebaseStorage,
-} from "../../firebase/firebaseConfig";
+import { firebaseAuth, firebaseFirestore } from "../../firebase/firebaseConfig";
 
 export default function SignUp() {
   const handleSignUp = async (
     email: string,
     password: string,
-    fullName?: string,
-    file?: File
+    username?: string
   ) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -24,18 +18,11 @@ export default function SignUp() {
       );
       const user = userCredential.user;
 
-      let imageUrl = "/empty-avatar.png";
-      if (file) {
-        const fileRef = ref(firebaseStorage, `profilePictures/${user.uid}`);
-        await uploadBytes(fileRef, file);
-        imageUrl = await getDownloadURL(fileRef);
-      }
-
       await setDoc(doc(firebaseFirestore, "users", user.uid), {
-        fullName: fullName || "",
+        username: username || "",
         email: email,
         uid: user.uid,
-        profilePicture: imageUrl,
+        profilePicture: "/empty-avatar.png",
       });
 
       toast.success("Account created successfully!");
@@ -48,12 +35,12 @@ export default function SignUp() {
   return (
     <AuthenticationForm
       text={"Sign Up"}
-      withText={false}
       extraInput={true}
       buttonText={"Sign Up"}
       onSubmit={handleSignUp}
       linkText={"Already have an account? Sign in here."}
       linkUrl={"/signin"}
+      verifyPassword={true}
     />
   );
 }
