@@ -131,7 +131,7 @@ export function Sidebar() {
       ) : (
         <>
           {/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */}
-          {data?.docs.map((item: any) => (
+          {data?.docs.map((_item: any) => (
             <div>Conversation</div>
           ))}
         </>
