@@ -15,15 +15,14 @@ export default function SignIn() {
   };
 
   return (
-    <div>
-      <AuthenticationForm
-        text={"Sign In"}
-        extraInput={false}
-        buttonText={"Sign In"}
-        linkText={"Don't have an account? Sign up here."}
-        onSubmit={handleSignIn}
-        linkUrl={"/signup"}
-      />
-    </div>
+    <AuthenticationForm
+      text={"Sign In"}
+      withText={true}
+      extraInput={false}
+      buttonText={"Sign In"}
+      linkText={"Don't have an account? Sign up here."}
+      onSubmit={handleSignIn}
+      linkUrl={"/signup"}
+    />
   );
 }

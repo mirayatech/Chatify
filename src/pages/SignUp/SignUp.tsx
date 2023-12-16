@@ -46,15 +46,14 @@ export default function SignUp() {
   };
 
   return (
-    <div>
-      <AuthenticationForm
-        text={"Sign Up"}
-        extraInput={true}
-        buttonText={"Sign Up"}
-        onSubmit={handleSignUp}
-        linkText={"Already have an account? Sign in here."}
-        linkUrl={"/signin"}
-      />
-    </div>
+    <AuthenticationForm
+      text={"Sign Up"}
+      withText={false}
+      extraInput={true}
+      buttonText={"Sign Up"}
+      onSubmit={handleSignUp}
+      linkText={"Already have an account? Sign in here."}
+      linkUrl={"/signin"}
+    />
   );
 }
