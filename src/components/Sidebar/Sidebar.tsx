@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import ClickAwayListener from "react-click-away-listener";
 
 import {
@@ -40,10 +39,11 @@ import { useTheme } from "../../hooks/useTheme";
 import { useUserStore } from "../../hooks";
 import { Spinner } from "../Core";
 import { Profile } from "./Profile/Profile";
+import { ProfileType } from "../../library";
 
 export function Sidebar() {
   const { currentUser } = useUserStore();
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState<ProfileType | null>(null);
   const [isSettingOpen, setIsSettingOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isConversationModalOpen, setConversationModalOpen] = useState(false);
@@ -92,7 +92,7 @@ export function Sidebar() {
         userDocRef,
         (doc) => {
           if (doc.exists()) {
-            const userData = doc.data();
+            const userData = doc.data() as ProfileType;
             setProfile(userData);
           }
         },
@@ -112,7 +112,7 @@ export function Sidebar() {
           to="/"
           style={{
             textDecoration: "none",
-            fontSize: "calc(20 / 16 * 1rem",
+            fontSize: "calc(24 / 16 * 1rem)",
             fontWeight: 500,
             color: theme === "light" ? "#24292f" : "#fff",
           }}
@@ -192,10 +192,10 @@ export function Sidebar() {
         </Container>
       ) : (
         <>
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */}
-          {data?.docs.map((_item: any) => (
+          {/* TODO: LATER NOT NOW */}
+          {/* {data?.docs.map((_item: any) => (
             <div>Conversation</div>
-          ))}
+          ))} */}
         </>
       )}
     </StyledSideBar>

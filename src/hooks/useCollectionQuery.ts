@@ -8,16 +8,16 @@ import type {
 import { onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const cache: { [key: string]: any } = {};
+const cache: { [key: string]: QuerySnapshot<DocumentData> | null } = {};
 
 export const useCollectionQuery: (
   key: string,
   collection: CollectionReference | Query<DocumentData>
-) => { loading: boolean; error: boolean; data: QuerySnapshot | null } = (
-  key,
-  collection
 ) => {
+  loading: boolean;
+  error: boolean;
+  data: QuerySnapshot<DocumentData> | null;
+} = (key, collection) => {
   const [data, setData] = useState<QuerySnapshot<DocumentData> | null>(
     cache[key] || null
   );
@@ -34,8 +34,8 @@ export const useCollectionQuery: (
         setError(false);
         cache[key] = snapshot;
       },
-      (err) => {
-        console.log(err);
+      (error) => {
+        console.error(error);
         setData(null);
         setLoading(false);
         setError(true);
@@ -45,8 +45,6 @@ export const useCollectionQuery: (
     return () => {
       unsubscribe();
     };
-
-    // eslint-disable-next-line
   }, [key]);
 
   return { loading, error, data };

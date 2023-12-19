@@ -22,6 +22,7 @@ import {
   ChangePictureButton,
   UploadPictureButton,
 } from "./Style";
+import { ProfileType } from "../../../library";
 
 type ProfileProps = {
   theme: string;
@@ -30,9 +31,9 @@ type ProfileProps = {
 
 export function Profile({ theme, setProfileOpen }: ProfileProps) {
   const currentUser = useUserStore((state) => state.currentUser);
-  const [userData, setUserData] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const filePickerRef = useRef(null);
+  const [userData, setUserData] = useState<ProfileType | null>(null);
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const filePickerRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (currentUser?.uid) {
@@ -41,9 +42,9 @@ export function Profile({ theme, setProfileOpen }: ProfileProps) {
         try {
           const docSnap = await getDoc(userRef);
           if (docSnap.exists()) {
-            setUserData(docSnap.data());
+            setUserData(docSnap.data() as ProfileType);
           } else {
-            // Handle the case where the document does not exist
+            console.log("No such document!");
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -72,29 +73,29 @@ export function Profile({ theme, setProfileOpen }: ProfileProps) {
           profilePicture: downloadURL,
         });
 
-        setUserData({ ...userData, profilePicture: downloadURL });
-        setSelectedFile(null);
-        setProfileOpen(false);
+        if (userData) {
+          setUserData({ ...userData, profilePicture: downloadURL });
+          setSelectedFile(null);
+          setProfileOpen(false);
+        } else {
+          console.error("Error: userData is null");
+        }
       })
       .catch((error) => {
         console.error("Error uploading image:", error);
       });
   };
 
-  const addImageToPost = (event) => {
+  const addImageToPost = (event: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     const file = event.target.files?.[0];
 
     if (file) {
       reader.readAsDataURL(file);
       reader.onload = (readerEvent) => {
-        setSelectedFile(readerEvent.target?.result);
+        setSelectedFile(readerEvent.target?.result as string);
       };
     }
-  };
-
-  const handleClose = () => {
-    setProfileOpen(false);
   };
 
   return (
@@ -113,7 +114,7 @@ export function Profile({ theme, setProfileOpen }: ProfileProps) {
             <UploadPictureButton
               role="input"
               aria-label="Select your profile picture"
-              onClick={() => filePickerRef.current.click()}
+              onClick={() => filePickerRef.current?.click()}
             >
               <FiRotateCcw />
 
@@ -147,7 +148,7 @@ export function Profile({ theme, setProfileOpen }: ProfileProps) {
             <Thick>Email:</Thick> {userData?.email || currentUser?.email}
           </Text>
         </Wrapper>
-        <CloseButton onClick={handleClose} theme={theme}>
+        <CloseButton onClick={() => setProfileOpen(false)} theme={theme}>
           <FiX />
         </CloseButton>
         <ActionButton
