@@ -7,26 +7,22 @@ import {
   where,
 } from "firebase/firestore";
 import { useState } from "react";
-import { FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 import { useCollectionQuery } from "../../../hooks/useCollectionQuery";
 import { firebaseFirestore } from "../../../firebase/firebaseConfig";
 import {
   ActionButton,
-  CloseButton,
   LoadingMessage,
-  ModalContainer,
-  ModalHeader,
   UserButton,
   UserList,
   UserName,
   UserProfilePicture,
-  ModalBackdrop,
   CheckBox,
 } from "./Style";
 import { useUserStore } from "../../../hooks";
 import { Spinner } from "../../Core";
+import { Modal } from "../../Core/Modal/Modal";
 type CreateConversationProps = {
   theme: string;
   setConversationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -100,60 +96,55 @@ export function CreateConversation({
     }
   };
 
-  const handleClose = () => {
-    setConversationModalOpen(false);
-  };
   return (
-    <ModalBackdrop>
-      <ModalContainer theme={theme}>
-        {loading ? (
-          <Spinner />
-        ) : error ? (
-          <p>Something went wrong</p>
-        ) : (
-          <div>
-            {isCreating && (
-              <LoadingMessage>Creating conversation...</LoadingMessage>
-            )}
+    <Modal
+      theme={theme}
+      onClose={() => setConversationModalOpen(false)}
+      title="New Conversation"
+    >
+      {loading ? (
+        <Spinner />
+      ) : error ? (
+        <p>Something went wrong</p>
+      ) : (
+        <div>
+          {isCreating && (
+            <LoadingMessage>Creating conversation...</LoadingMessage>
+          )}
 
-            <ModalHeader theme={theme}>New Conversation</ModalHeader>
-            <UserList theme={theme}>
-              {data?.docs
-                .filter((doc) => doc.data().uid !== currentUser?.uid)
-                .map((doc) => (
-                  <UserButton
+          <UserList theme={theme}>
+            {data?.docs
+              .filter((doc) => doc.data().uid !== currentUser?.uid)
+              .map((doc) => (
+                <UserButton
+                  theme={theme}
+                  key={doc.data().uid}
+                  onClick={() => handleToggle(doc.data().uid)}
+                >
+                  <CheckBox
+                    type="checkbox"
+                    style={{ cursor: "pointer" }}
+                    checked={selected.includes(doc.data().uid)}
+                    readOnly
+                  />
+                  <UserProfilePicture
                     theme={theme}
-                    key={doc.data().uid}
-                    onClick={() => handleToggle(doc.data().uid)}
-                  >
-                    <CheckBox
-                      type="checkbox"
-                      style={{ cursor: "pointer" }}
-                      checked={selected.includes(doc.data().uid)}
-                      readOnly
-                    />
-                    <UserProfilePicture
-                      theme={theme}
-                      src={doc.data().profilePicture}
-                      alt=""
-                    />
-                    <UserName theme={theme}>{doc.data().username}</UserName>
-                  </UserButton>
-                ))}
-            </UserList>
-            <ActionButton
-              theme={theme}
-              disabled={selected.length === 0}
-              onClick={handleCreateConversation}
-            >
-              Start conversation
-            </ActionButton>
-            <CloseButton theme={theme} aria-label="close" onClick={handleClose}>
-              <FiX />
-            </CloseButton>
-          </div>
-        )}
-      </ModalContainer>
-    </ModalBackdrop>
+                    src={doc.data().profilePicture}
+                    alt=""
+                  />
+                  <UserName theme={theme}>{doc.data().username}</UserName>
+                </UserButton>
+              ))}
+          </UserList>
+          <ActionButton
+            theme={theme}
+            disabled={selected.length === 0}
+            onClick={handleCreateConversation}
+          >
+            Start conversation
+          </ActionButton>
+        </div>
+      )}
+    </Modal>
   );
 }

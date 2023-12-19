@@ -10,12 +10,8 @@ import { FiX, FiRotateCcw } from "react-icons/fi";
 import { useUserStore } from "../../../hooks";
 import {
   Thick,
-  CloseButton,
   Image,
   Text,
-  ModalHeader,
-  ModalBackdrop,
-  ModalContainer,
   Container,
   Wrapper,
   ActionButton,
@@ -23,6 +19,7 @@ import {
   UploadPictureButton,
 } from "./Style";
 import { ProfileType } from "../../../library";
+import { Modal } from "../../Core/Modal/Modal";
 
 type ProfileProps = {
   theme: string;
@@ -99,66 +96,65 @@ export function Profile({ theme, setProfileOpen }: ProfileProps) {
   };
 
   return (
-    <ModalBackdrop>
-      <ModalContainer theme={theme}>
-        <ModalHeader theme={theme}>Your Profile</ModalHeader>
-        <Container>
-          {selectedFile ? (
-            <ChangePictureButton
-              aria-label="Change your profile picture"
-              onClick={() => setSelectedFile(null)}
-            >
-              <FiX />
-            </ChangePictureButton>
-          ) : (
-            <UploadPictureButton
-              role="input"
-              aria-label="Select your profile picture"
-              onClick={() => filePickerRef.current?.click()}
-            >
-              <FiRotateCcw />
+    <Modal
+      theme={theme}
+      onClose={() => setProfileOpen(false)}
+      title={"Your Profile"}
+    >
+      <Container>
+        {selectedFile ? (
+          <ChangePictureButton
+            aria-label="Change your profile picture"
+            onClick={() => setSelectedFile(null)}
+          >
+            <FiX />
+          </ChangePictureButton>
+        ) : (
+          <UploadPictureButton
+            role="input"
+            aria-label="Select your profile picture"
+            onClick={() => filePickerRef.current?.click()}
+          >
+            <FiRotateCcw />
 
-              <input
-                type="file"
-                name="file"
-                id="fileupload"
-                ref={filePickerRef}
-                accept="image/jpeg, image/png"
-                aria-label="Choose File"
-                onChange={addImageToPost}
-                hidden
-              />
-            </UploadPictureButton>
-          )}
+            <input
+              type="file"
+              name="file"
+              id="fileupload"
+              ref={filePickerRef}
+              accept="image/jpeg, image/png"
+              aria-label="Choose File"
+              onChange={addImageToPost}
+              hidden
+            />
+          </UploadPictureButton>
+        )}
 
-          {selectedFile ? (
-            <Image src={selectedFile} />
-          ) : (
-            <Image src={userData?.profilePicture} />
-          )}
-        </Container>
-        <Wrapper>
-          <Text theme={theme}>
-            <Thick>ID:</Thick> {currentUser?.uid}
-          </Text>
-          <Text theme={theme}>
-            <Thick>username</Thick> {userData?.username}
-          </Text>
-          <Text theme={theme}>
-            <Thick>Email:</Thick> {userData?.email || currentUser?.email}
-          </Text>
-        </Wrapper>
-        <CloseButton onClick={() => setProfileOpen(false)} theme={theme}>
-          <FiX />
-        </CloseButton>
-        <ActionButton
-          disabled={!selectedFile}
-          onClick={uploadImage}
-          theme={theme}
-        >
-          Save
-        </ActionButton>
-      </ModalContainer>
-    </ModalBackdrop>
+        {selectedFile ? (
+          <Image src={selectedFile} />
+        ) : (
+          <Image src={userData?.profilePicture} />
+        )}
+      </Container>
+      <Wrapper>
+        <Text theme={theme}>
+          <Thick>ID:</Thick> {currentUser?.uid}
+        </Text>
+        <Text theme={theme}>
+          <Thick>username</Thick> {userData?.username}
+        </Text>
+        <Text theme={theme}>
+          <Thick>Email:</Thick> {userData?.email || currentUser?.email}
+        </Text>
+      </Wrapper>
+
+      <ActionButton
+        disabled={!selectedFile}
+        onClick={uploadImage}
+        theme={theme}
+      >
+        Save
+      </ActionButton>
+    </Modal>
   );
 }
