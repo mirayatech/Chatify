@@ -97,7 +97,6 @@ export const ActionButton = styled.button<StyledProps>`
   &:disabled:hover {
     background-color: ${({ theme }) =>
       theme === "light" ? color.lightMode.border : color.lightGreyDark};
-    // Maintain disabled background color on hover
   }
 
   &:hover {
