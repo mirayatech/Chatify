@@ -6,7 +6,7 @@ import {
   ReactNode,
 } from "react";
 import { getFirestore, doc, onSnapshot } from "firebase/firestore";
-import { useUserStore } from "../library";
+import { useUserStore } from ".";
 
 type ThemeContextType = string | null;
 
