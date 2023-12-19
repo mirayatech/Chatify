@@ -10,7 +10,6 @@ import { useState } from "react";
 import { FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-import { useUserStore } from "../../../library";
 import { useCollectionQuery } from "../../../hooks/useCollectionQuery";
 import { firebaseFirestore } from "../../../firebase/firebaseConfig";
 import {
@@ -24,13 +23,18 @@ import {
   UserName,
   UserProfilePicture,
   ModalBackdrop,
+  CheckBox,
 } from "./Style";
+import { useUserStore } from "../../../hooks";
+import { Spinner } from "../../Core";
 type CreateConversationProps = {
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  theme: string;
+  setConversationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function CreateConversation({
-  setIsModalOpen,
+  setConversationModalOpen,
+  theme,
 }: CreateConversationProps) {
   const [isCreating, setIsCreating] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
@@ -84,11 +88,11 @@ export function CreateConversation({
 
       setIsCreating(false);
 
-      setIsModalOpen(false);
+      setConversationModalOpen(false);
 
       navigate(`/${created.id}`);
     } else {
-      setIsModalOpen(false);
+      setConversationModalOpen(false);
 
       navigate(`/${querySnapshot.docs[0].id}`);
 
@@ -97,13 +101,13 @@ export function CreateConversation({
   };
 
   const handleClose = () => {
-    setIsModalOpen(false);
+    setConversationModalOpen(false);
   };
   return (
     <ModalBackdrop>
-      <ModalContainer>
+      <ModalContainer theme={theme}>
         {loading ? (
-          <LoadingMessage>Loading...</LoadingMessage>
+          <Spinner />
         ) : error ? (
           <p>Something went wrong</p>
         ) : (
@@ -112,36 +116,39 @@ export function CreateConversation({
               <LoadingMessage>Creating conversation...</LoadingMessage>
             )}
 
-            <ModalHeader>New Conversation</ModalHeader>
-            <UserList>
+            <ModalHeader theme={theme}>New Conversation</ModalHeader>
+            <UserList theme={theme}>
               {data?.docs
                 .filter((doc) => doc.data().uid !== currentUser?.uid)
                 .map((doc) => (
                   <UserButton
+                    theme={theme}
                     key={doc.data().uid}
                     onClick={() => handleToggle(doc.data().uid)}
                   >
-                    <input
+                    <CheckBox
                       type="checkbox"
                       style={{ cursor: "pointer" }}
                       checked={selected.includes(doc.data().uid)}
                       readOnly
                     />
                     <UserProfilePicture
+                      theme={theme}
                       src={doc.data().profilePicture}
                       alt=""
                     />
-                    <UserName>{doc.data().username}</UserName>
+                    <UserName theme={theme}>{doc.data().username}</UserName>
                   </UserButton>
                 ))}
             </UserList>
             <ActionButton
+              theme={theme}
               disabled={selected.length === 0}
               onClick={handleCreateConversation}
             >
               Start conversation
             </ActionButton>
-            <CloseButton aria-label="close" onClick={handleClose}>
+            <CloseButton theme={theme} aria-label="close" onClick={handleClose}>
               <FiX />
             </CloseButton>
           </div>
