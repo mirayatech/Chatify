@@ -10,8 +10,8 @@ import {
   Label,
 } from "./Style";
 import toast from "react-hot-toast";
-import { useUserStore } from "../../library";
 import { Navigate } from "react-router-dom";
+import { useUserStore } from "../../../hooks";
 
 type AuthenticationFormProps = {
   text: string;
