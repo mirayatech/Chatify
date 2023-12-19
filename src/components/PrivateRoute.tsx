@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import { useUserStore } from "../library";
 import { Navigate } from "react-router-dom";
+import { useUserStore } from "../hooks";
 
 export default function PrivateRoute({ children }: { children: ReactNode }) {
   const { currentUser } = useUserStore();

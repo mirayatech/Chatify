@@ -1,4 +1,4 @@
-import AuthenticationForm from "../../components/AuthenticationForm/AuthenticationForm";
+import AuthenticationForm from "../../components/Core/AuthenticationForm/AuthenticationForm";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
 import { firebaseAuth } from "../../firebase/firebaseConfig";

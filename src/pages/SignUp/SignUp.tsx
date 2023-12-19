@@ -1,4 +1,4 @@
-import AuthenticationForm from "../../components/AuthenticationForm/AuthenticationForm";
+import AuthenticationForm from "../../components/Core/AuthenticationForm/AuthenticationForm";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
@@ -19,9 +19,10 @@ export default function SignUp() {
       const user = userCredential.user;
 
       await setDoc(doc(firebaseFirestore, "users", user.uid), {
-        username: username || "",
+        username: username,
         email: email,
         uid: user.uid,
+        chatMode: "light",
         profilePicture: "/empty-avatar.png",
       });
 
