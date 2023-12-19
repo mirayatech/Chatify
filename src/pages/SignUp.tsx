@@ -1,8 +1,8 @@
-import AuthenticationForm from "../../components/Core/AuthenticationForm/AuthenticationForm";
+import AuthenticationForm from "../components/Core/AuthenticationForm/AuthenticationForm";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
-import { firebaseAuth, firebaseFirestore } from "../../firebase/firebaseConfig";
+import { firebaseAuth, firebaseFirestore } from "../firebase/firebaseConfig";
 
 export default function SignUp() {
   const handleSignUp = async (

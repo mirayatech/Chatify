@@ -10,8 +10,8 @@ import { ThemeProvider } from "./hooks/useTheme";
 import { useUserStore } from "./hooks";
 import { Spinner } from "./components/Core";
 
-const SignIn = lazy(() => import("./pages/SignIn/SignIn"));
-const SignUp = lazy(() => import("./pages/SignUp/SignUp"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const SignUp = lazy(() => import("./pages/SignUp"));
 
 export default function App() {
   const { setCurrentUser } = useUserStore();
