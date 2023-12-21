@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
+import { color } from "../../../library";
 
 export const Flex = styled.div`
   display: flex;
@@ -6,6 +7,9 @@ export const Flex = styled.div`
   padding: 15px;
   align-items: center;
   position: relative;
+  border-bottom: 1px solid
+    ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkMode.border};
 `;
 
 export const Image = styled.img`
@@ -16,16 +20,20 @@ export const Image = styled.img`
 
 export const Name = styled.p`
   font-weight: 500;
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.navText : color.darkMode.navText};
 `;
 
 export const LastMessage = styled.p`
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.navText : color.darkMode.navText};
   font-size: calc(14 / 16 * 1rem);
 `;
 
 export const Notify = styled.div`
   right: 20px;
   font-size: 0.5rem;
-
+  color: cornflowerblue;
   position: absolute;
 `;
 

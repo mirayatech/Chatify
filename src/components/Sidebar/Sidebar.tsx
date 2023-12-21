@@ -161,6 +161,7 @@ export function Sidebar() {
           {data?.docs.map((item) => (
             <SelectConversation
               key={item.id}
+              theme={theme}
               conversation={item.data() as ConversationInfoType}
               conversationId={item.id}
             />
