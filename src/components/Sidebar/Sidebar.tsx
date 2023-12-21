@@ -8,7 +8,6 @@ import { LuPlus } from "react-icons/lu";
 import { useState } from "react";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
-import { CreateConversation } from "./CreateConversation/CreateConversation";
 import {
   ChatButton,
   Container,
@@ -30,9 +29,8 @@ import {
 import { useTheme } from "../../hooks/useTheme";
 import { useUserStore } from "../../hooks";
 import { Spinner } from "../Core";
-import { Profile } from "./Profile/Profile";
 import { ConversationInfoType, IMAGE_PROXY } from "../../library";
-import { SelectConversation } from "./SelectedConversation/SelectConversation";
+import { CreateConversation, Profile, SelectConversation } from ".";
 
 export function Sidebar() {
   const { currentUser } = useUserStore();

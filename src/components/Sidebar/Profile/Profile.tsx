@@ -1,6 +1,6 @@
 import { useUserStore } from "../../../hooks";
 import { Thick, Image, Text, Container, Wrapper } from "./Style";
-import { Modal } from "../../Core/Modal/Modal";
+import { Modal } from "../../Core";
 import { IMAGE_PROXY } from "../../../library";
 
 type ProfileProps = {

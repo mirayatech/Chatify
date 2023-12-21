@@ -12,13 +12,13 @@ import { useNavigate } from "react-router-dom";
 import { useCollectionQuery, useUserStore } from "../../../hooks";
 import { firebaseFirestore } from "../../../firebase/firebaseConfig";
 import { IMAGE_PROXY } from "../../../library";
-import { Name } from "../SelectedConversation/Style";
 import { Wrapper, Text } from "../Style";
 import {
   ActionButton,
   CheckBox,
   UserButton,
   UserList,
+  UserName,
   UserProfilePicture,
 } from "./Style";
 import { Modal, Spinner } from "../../Core";
@@ -128,7 +128,7 @@ export function CreateConversation({
                     src={IMAGE_PROXY(doc.data().photoURL)}
                     alt=""
                   />
-                  <Name>{doc.data().displayName}</Name>
+                  <UserName>{doc.data().displayName}</UserName>
                 </UserButton>
               ))}
           </UserList>
