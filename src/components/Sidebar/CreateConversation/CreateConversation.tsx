@@ -9,29 +9,28 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useCollectionQuery } from "../../../hooks/useCollectionQuery";
+import { useCollectionQuery, useUserStore } from "../../../hooks";
 import { firebaseFirestore } from "../../../firebase/firebaseConfig";
+import { IMAGE_PROXY } from "../../../library";
+import { Name } from "../SelectedConversation/Style";
+import { Wrapper, Text } from "../Style";
 import {
   ActionButton,
-  LoadingMessage,
+  CheckBox,
   UserButton,
   UserList,
-  UserName,
   UserProfilePicture,
-  CheckBox,
 } from "./Style";
-import { useUserStore } from "../../../hooks";
-import { Spinner } from "../../Core";
-import { Modal } from "../../Core/Modal/Modal";
-import { IMAGE_PROXY } from "../../../library";
+import { Modal, Spinner } from "../../Core";
+
 type CreateConversationProps = {
   theme: string;
   setConversationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function CreateConversation({
-  setConversationModalOpen,
   theme,
+  setConversationModalOpen,
 }: CreateConversationProps) {
   const [isCreating, setIsCreating] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
@@ -101,19 +100,16 @@ export function CreateConversation({
     <Modal
       theme={theme}
       onClose={() => setConversationModalOpen(false)}
-      title="New Conversation"
+      title="Create Conversation"
     >
       {loading ? (
         <Spinner />
       ) : error ? (
-        <p>Something went wrong</p>
+        <Text>Something went wrong</Text>
       ) : (
-        <div>
-          {isCreating && (
-            <LoadingMessage>Creating conversation...</LoadingMessage>
-          )}
-
-          <UserList theme={theme}>
+        <>
+          {isCreating && <Spinner />}
+          <UserList>
             {data?.docs
               .filter((doc) => doc.data().uid !== currentUser?.uid)
               .map((doc) => (
@@ -129,23 +125,23 @@ export function CreateConversation({
                     readOnly
                   />
                   <UserProfilePicture
-                    src={IMAGE_PROXY(
-                      currentUser?.photoURL ?? "/empty-avatar.png"
-                    )}
-                    alt="profile picture"
+                    src={IMAGE_PROXY(doc.data().photoURL)}
+                    alt=""
                   />
-                  <UserName theme={theme}>{doc.data().displayName}</UserName>
+                  <Name>{doc.data().displayName}</Name>
                 </UserButton>
               ))}
           </UserList>
-          <ActionButton
-            theme={theme}
-            disabled={selected.length === 0}
-            onClick={handleCreateConversation}
-          >
-            Start conversation
-          </ActionButton>
-        </div>
+          <Wrapper>
+            <ActionButton
+              theme={theme}
+              disabled={selected.length === 0}
+              onClick={handleCreateConversation}
+            >
+              Start conversation
+            </ActionButton>
+          </Wrapper>
+        </>
       )}
     </Modal>
   );
