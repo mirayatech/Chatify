@@ -6,3 +6,9 @@ export const AuthContainer = styled.div`
   align-items: center;
   min-height: 100vh;
 `;
+
+export const MobileHide = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
