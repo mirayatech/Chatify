@@ -2,10 +2,9 @@ export const color = {
   white: "#ffffff",
   lightGreyLight: "#efefef",
   lightGreyDark: "#474646",
-  primary: "#1AA7EC",
+  primary: "#4c8bf5",
   lightMode: {
-    primaryHoverLight: "#179bd8",
-
+    primaryHoverLight: "#407add",
     primaryTextHover: "#11181c",
     navText: "#687076",
     navHoverText: "#343837",
@@ -16,7 +15,7 @@ export const color = {
   },
 
   darkMode: {
-    primaryHoverDark: "#1291cc",
+    primaryHoverDark: "#407add",
     primaryTextHover: "#ededed",
     navText: "#a0a0a0",
     navHoverText: "#d3d3d3",

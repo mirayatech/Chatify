@@ -27,7 +27,7 @@ export const useDocumentQuery = (
         setLoading(false);
       },
       (err) => {
-        console.log(err);
+        console.log("error:", err);
         setData(null);
         setLoading(false);
         setError(true);

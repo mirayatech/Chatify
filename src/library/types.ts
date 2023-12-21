@@ -5,9 +5,8 @@ export type ProfileType = {
   chatMode: string;
   profilePicture: string;
 };
-
 export type StyledProps = {
-  theme: string;
+  theme: string | null;
 };
 
 export type ConversationInfoType = {

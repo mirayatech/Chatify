@@ -1,19 +1,11 @@
 import ClickAwayListener from "react-click-away-listener";
 
-import {
-  query,
-  collection,
-  orderBy,
-  where,
-  updateDoc,
-  doc,
-  onSnapshot,
-} from "firebase/firestore";
+import { query, collection, orderBy, where } from "firebase/firestore";
 import { useCollectionQuery } from "../../hooks/useCollectionQuery";
 import { firebaseAuth, firebaseFirestore } from "../../firebase/firebaseConfig";
 import { Link } from "react-router-dom";
 import { LuPlus } from "react-icons/lu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signOut } from "firebase/auth";
 import toast from "react-hot-toast";
 import { CreateConversation } from "./CreateConversation/CreateConversation";
@@ -39,15 +31,19 @@ import { useTheme } from "../../hooks/useTheme";
 import { useUserStore } from "../../hooks";
 import { Spinner } from "../Core";
 import { Profile } from "./Profile/Profile";
-import { ProfileType } from "../../library";
+import { IMAGE_PROXY } from "../../library";
 
 export function Sidebar() {
   const { currentUser } = useUserStore();
-  const [profile, setProfile] = useState<ProfileType | null>(null);
   const [isSettingOpen, setIsSettingOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isConversationModalOpen, setConversationModalOpen] = useState(false);
-  const theme = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   const { data, error, loading } = useCollectionQuery(
     "conversations",
     query(
@@ -70,40 +66,6 @@ export function Sidebar() {
     setProfileOpen(true);
     setIsSettingOpen(false);
   };
-
-  const toggleTheme = async () => {
-    if (currentUser?.uid) {
-      const userRef = doc(firebaseFirestore, "users", currentUser.uid);
-      try {
-        await updateDoc(userRef, {
-          chatMode: theme === "light" ? "dark" : "light",
-        });
-      } catch (error) {
-        console.error("Error updating theme:", error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (currentUser?.uid) {
-      const userDocRef = doc(firebaseFirestore, "users", currentUser.uid);
-
-      const unsubscribe = onSnapshot(
-        userDocRef,
-        (doc) => {
-          if (doc.exists()) {
-            const userData = doc.data() as ProfileType;
-            setProfile(userData);
-          }
-        },
-        (error) => {
-          console.error("Error fetching user data:", error);
-        }
-      );
-
-      return () => unsubscribe();
-    }
-  }, [currentUser?.uid]);
 
   return (
     <StyledSideBar theme={theme}>
@@ -137,7 +99,12 @@ export function Sidebar() {
                   setIsSettingOpen(!isSettingOpen);
                 }}
               >
-                <ProfilePicture src={profile?.profilePicture} alt="" />
+                <ProfilePicture
+                  src={IMAGE_PROXY(
+                    currentUser?.photoURL ?? "/empty-avatar.png"
+                  )}
+                  alt="profile picture"
+                />
               </ProfileButton>
 
               {isSettingOpen && (
@@ -163,11 +130,11 @@ export function Sidebar() {
         </Wrapper>
       </StyledNavbar>
 
-      {isProfileOpen && (
+      {isProfileOpen && theme && (
         <Profile theme={theme} setProfileOpen={setProfileOpen} />
       )}
 
-      {isConversationModalOpen && (
+      {isConversationModalOpen && theme && (
         <CreateConversation
           theme={theme}
           setConversationModalOpen={setConversationModalOpen}

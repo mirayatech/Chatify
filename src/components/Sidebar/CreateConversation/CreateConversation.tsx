@@ -23,6 +23,7 @@ import {
 import { useUserStore } from "../../../hooks";
 import { Spinner } from "../../Core";
 import { Modal } from "../../Core/Modal/Modal";
+import { IMAGE_PROXY } from "../../../library";
 type CreateConversationProps = {
   theme: string;
   setConversationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -128,11 +129,12 @@ export function CreateConversation({
                     readOnly
                   />
                   <UserProfilePicture
-                    theme={theme}
-                    src={doc.data().profilePicture}
-                    alt=""
+                    src={IMAGE_PROXY(
+                      currentUser?.photoURL ?? "/empty-avatar.png"
+                    )}
+                    alt="profile picture"
                   />
-                  <UserName theme={theme}>{doc.data().username}</UserName>
+                  <UserName theme={theme}>{doc.data().displayName}</UserName>
                 </UserButton>
               ))}
           </UserList>

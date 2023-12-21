@@ -3,7 +3,7 @@ import { useTheme } from "../../hooks";
 import { HomeWrapper, Wrapper, Text } from "./Style";
 
 export default function Home() {
-  const theme = useTheme();
+  const { theme } = useTheme();
   return (
     <Wrapper>
       <Sidebar />

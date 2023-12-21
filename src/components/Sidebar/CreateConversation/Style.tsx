@@ -33,7 +33,7 @@ export const UserButton = styled.button<StyledProps>`
   }
 `;
 
-export const UserProfilePicture = styled.img<StyledProps>`
+export const UserProfilePicture = styled.img`
   border-radius: 50%;
   width: 30px;
   height: 30px;

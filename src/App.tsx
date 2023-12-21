@@ -3,27 +3,33 @@ import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { AuthContainer } from "./styles/ReusableStyles";
 import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuth } from "./firebase/firebaseConfig";
+import { firebaseAuth, firebaseFirestore } from "./firebase/firebaseConfig";
 import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home/Home";
 import { ThemeProvider } from "./hooks/useTheme";
 import { useUserStore } from "./hooks";
 import { Spinner } from "./components/Core";
+import { setDoc, doc } from "firebase/firestore";
 
-const SignIn = lazy(() => import("./pages/SignIn"));
-const SignUp = lazy(() => import("./pages/SignUp"));
+const SignIn = lazy(() => import("./pages/SignIn/SignIn"));
 
 export default function App() {
   const { setCurrentUser } = useUserStore();
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (user) => {
-      console.log(user);
       if (user) {
         setCurrentUser(user);
+        setDoc(doc(firebaseFirestore, `users/${user.uid}`), {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          phoneNumber: user.phoneNumber || user.providerData?.[0]?.phoneNumber,
+        });
       } else setCurrentUser(null);
     });
-  }, [setCurrentUser]);
+  }, []);
 
   return (
     <ThemeProvider>
@@ -50,22 +56,6 @@ export default function App() {
             >
               <AuthContainer>
                 <SignIn />
-              </AuthContainer>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <Suspense
-              fallback={
-                <AuthContainer>
-                  <Spinner />
-                </AuthContainer>
-              }
-            >
-              <AuthContainer>
-                <SignUp />
               </AuthContainer>
             </Suspense>
           }

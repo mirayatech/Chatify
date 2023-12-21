@@ -5,48 +5,41 @@ import {
   useContext,
   ReactNode,
 } from "react";
-import { getFirestore, doc, onSnapshot } from "firebase/firestore";
-import { useUserStore } from ".";
 
-type ThemeContextType = string | null;
+type ThemeContextType = {
+  theme: string | null;
+  setTheme: (theme: string) => void;
+};
 
-const ThemeContext = createContext<ThemeContextType>(null);
+const ThemeContext = createContext<ThemeContextType | null>(null);
 
 type ThemeProviderProps = {
   children: ReactNode;
 };
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const { currentUser } = useUserStore();
-  const [theme, setTheme] = useState<ThemeContextType>("light");
+  const [theme, setTheme] = useState<string>("light"); // Ensure theme is a string
 
   useEffect(() => {
-    if (currentUser && currentUser.uid) {
-      const db = getFirestore();
-      const userDoc = doc(db, "users", currentUser.uid);
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+  }, []);
 
-      const unsubscribe = onSnapshot(userDoc, (doc) => {
-        const userData = doc.data();
-        if (userData && userData.chatMode) {
-          setTheme(userData.chatMode);
-        }
-      });
-
-      return () => unsubscribe();
-    }
-  }, [currentUser]);
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
   );
 }
 
-export function useTheme() {
+export function useTheme(): ThemeContextType {
   const context = useContext(ThemeContext);
-
-  if (context === null) {
+  if (!context) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
-
   return context;
 }
