@@ -5,13 +5,14 @@ import { AuthContainer } from "./styles/ReusableStyles";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth, firebaseFirestore } from "./firebase/firebaseConfig";
 import PrivateRoute from "./components/PrivateRoute";
-import Home from "./pages/Home/Home";
 import { ThemeProvider } from "./hooks/useTheme";
 import { useUserStore } from "./hooks";
 import { Spinner } from "./components/Core";
 import { setDoc, doc } from "firebase/firestore";
 
 const SignIn = lazy(() => import("./pages/SignIn/SignIn"));
+const Home = lazy(() => import("./pages/Home/Home"));
+const Chat = lazy(() => import("./pages/Chat/Chat"));
 
 export default function App() {
   const { setCurrentUser } = useUserStore();
@@ -57,6 +58,23 @@ export default function App() {
               <AuthContainer>
                 <SignIn />
               </AuthContainer>
+            </Suspense>
+          }
+        />
+
+        <Route
+          path="/:id"
+          element={
+            <Suspense
+              fallback={
+                <AuthContainer>
+                  <Spinner />
+                </AuthContainer>
+              }
+            >
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
             </Suspense>
           }
         />
