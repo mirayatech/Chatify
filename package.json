@@ -11,6 +11,9 @@
     "tscheck": "./node_modules/typescript/bin/tsc --noEmit"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.1",
     "dayjs": "^1.11.10",
     "firebase": "^10.7.1",
     "framer-motion": "^10.16.16",
