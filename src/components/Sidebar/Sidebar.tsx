@@ -31,7 +31,8 @@ import { useTheme } from "../../hooks/useTheme";
 import { useUserStore } from "../../hooks";
 import { Spinner } from "../Core";
 import { Profile } from "./Profile/Profile";
-import { IMAGE_PROXY } from "../../library";
+import { ConversationInfoType, IMAGE_PROXY } from "../../library";
+import { SelectConversation } from "./SelectedConversation/SelectConversation";
 
 export function Sidebar() {
   const { currentUser } = useUserStore();
@@ -159,10 +160,13 @@ export function Sidebar() {
         </Container>
       ) : (
         <>
-          {/* TODO: LATER NOT NOW */}
-          {/* {data?.docs.map((_item: any) => (
-            <div>Conversation</div>
-          ))} */}
+          {data?.docs.map((item) => (
+            <SelectConversation
+              key={item.id}
+              conversation={item.data() as ConversationInfoType}
+              conversationId={item.id}
+            />
+          ))}
         </>
       )}
     </StyledSideBar>

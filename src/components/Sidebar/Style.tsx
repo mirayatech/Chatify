@@ -40,6 +40,7 @@ export const ProfileButton = styled.button`
 `;
 
 export const ProfileMenu = styled.div<StyledProps>`
+  z-index: 1;
   position: absolute;
   top: 70px;
   right: -27px;
