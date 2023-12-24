@@ -20,7 +20,9 @@ export const HomeWrapper = styled.div<StyledProps>`
   flex-direction: column;
   justify-content: center;
   background-color: ${({ theme }) =>
-    theme === "light" ? color.lightMode.background : color.darkMode.background};
+    theme === "light"
+      ? color.lightMode.chatBackground
+      : color.darkMode.chatBackground};
 
   @media screen and (max-width: 768px) {
     display: none;
