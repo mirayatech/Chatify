@@ -1,7 +1,7 @@
 import { useUserStore } from "../../../hooks";
 import { Thick, Image, Text, Container, Wrapper } from "./Style";
 import { Modal } from "../../Core";
-import { IMAGE_PROXY } from "../../../library";
+import { DEFAULT_AVATAR, IMAGE_PROXY } from "../../../library";
 
 type ProfileProps = {
   theme: string;
@@ -19,7 +19,7 @@ export function Profile({ theme, setProfileOpen }: ProfileProps) {
     >
       <Container>
         <Image
-          src={IMAGE_PROXY(currentUser?.photoURL ?? "/empty-avatar.png")}
+          src={IMAGE_PROXY(currentUser?.photoURL ?? DEFAULT_AVATAR)}
           alt="profile picture"
         />
       </Container>

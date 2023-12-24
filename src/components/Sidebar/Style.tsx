@@ -3,6 +3,7 @@ import { StyledProps, color } from "../../library";
 
 export const StyledSideBar = styled.div<StyledProps>`
   width: 100%;
+  height: 100vh;
   border-right: none;
   background-color: ${({ theme }) =>
     theme === "light" ? color.lightMode.background : color.darkMode.background};

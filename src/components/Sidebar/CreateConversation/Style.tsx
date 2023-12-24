@@ -19,7 +19,7 @@ export const UserButton = styled.button<StyledProps>`
   padding: 15px;
   border-radius: 5px;
   color: ${({ theme }) =>
-    theme === "light" ? color.lightMode.text : color.darkMode.text};
+    theme === "light" ? color.lightMode.title : color.darkMode.title};
   transition: all 0.2s ease;
   &:not(:last-child) {
     border-bottom: 1px solid
@@ -58,12 +58,12 @@ export const ActionButton = styled.button<StyledProps>`
   transition: all 0.2s ease;
   &:disabled {
     background-color: ${({ theme }) =>
-      theme === "light" ? color.lightMode.border : color.lightGreyDark};
+      theme === "light" ? color.lightMode.border : color.darkGreyDark};
   }
 
   &:disabled:hover {
     background-color: ${({ theme }) =>
-      theme === "light" ? color.lightMode.border : color.lightGreyDark};
+      theme === "light" ? color.lightMode.border : color.darkGreyDark};
   }
 
   &:hover {

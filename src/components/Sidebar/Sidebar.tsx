@@ -29,7 +29,11 @@ import {
 import { useTheme } from "../../hooks/useTheme";
 import { useUserStore } from "../../hooks";
 import { Spinner } from "../Core";
-import { ConversationInfoType, IMAGE_PROXY } from "../../library";
+import {
+  ConversationInfoType,
+  DEFAULT_AVATAR,
+  IMAGE_PROXY,
+} from "../../library";
 import { CreateConversation, Profile, SelectConversation } from ".";
 
 export function Sidebar() {
@@ -99,9 +103,7 @@ export function Sidebar() {
                 }}
               >
                 <ProfilePicture
-                  src={IMAGE_PROXY(
-                    currentUser?.photoURL ?? "/empty-avatar.png"
-                  )}
+                  src={IMAGE_PROXY(currentUser?.photoURL ?? DEFAULT_AVATAR)}
                   alt="profile picture"
                 />
               </ProfileButton>

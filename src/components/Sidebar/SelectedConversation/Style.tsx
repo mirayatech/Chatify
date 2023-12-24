@@ -20,8 +20,9 @@ export const Image = styled.img`
 
 export const Name = styled.p`
   font-weight: 500;
+  padding-bottom: 5px;
   color: ${({ theme }) =>
-    theme === "light" ? color.lightMode.navText : color.darkMode.navText};
+    theme === "light" ? color.lightMode.title : color.darkMode.title};
 `;
 
 export const LastMessage = styled.p`
@@ -33,7 +34,7 @@ export const LastMessage = styled.p`
 export const Notify = styled.div`
   right: 20px;
   font-size: 0.5rem;
-  color: cornflowerblue;
+  color: ${({ theme }) => (theme === "light" ? color.primary : color.primary)};
   position: absolute;
 `;
 
