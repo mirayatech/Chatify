@@ -1,0 +1,43 @@
+@import url("../../../index.css");
+
+.status__right {
+  cursor: pointer;
+  right: 40px;
+  bottom: -22px;
+  position: absolute;
+  border-radius: 30px;
+  padding: 2px 6px 2px 2px;
+}
+
+.status__left-twenty {
+  cursor: pointer;
+  left: 40px;
+  bottom: -22px;
+  position: absolute;
+  border-radius: 30px;
+  padding: 2px 6px 2px 2px;
+}
+
+.status__left-seventy {
+  cursor: pointer;
+  left: 60px;
+  bottom: -0px;
+  padding: 2px 6px 2px 2px;
+  position: absolute;
+  border-radius: 30px;
+}
+
+.status__right img,
+.status__left-twenty img,
+.status__left-seventy img {
+  margin-bottom: -2px;
+  width: 15px;
+  margin-right: 3px;
+}
+.status__right span,
+.status__left-twenty span,
+.status__left-seventy span {
+  /* width: 10px; */
+  font-weight: 500;
+  font-size: 0.8rem;
+}
