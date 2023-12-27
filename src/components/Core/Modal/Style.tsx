@@ -1,19 +1,6 @@
 import styled from "styled-components";
 import { StyledProps, color } from "../../../library";
 
-export const ModalBackdrop = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-`;
-
 export const ModalContainer = styled.div<StyledProps>`
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -22,13 +9,32 @@ export const ModalContainer = styled.div<StyledProps>`
   position: relative;
   z-index: 1;
   max-height: 500px;
+  margin: 0 5px;
+  overflow-y: auto;
   background-color: ${({ theme }) =>
     theme === "light" ? color.white : color.darkMode.border};
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) =>
+      theme === "light" ? "darkgray" : color.darkGreyDark};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkMode.background};
+    border-radius: 0 0 20px 0;
+  }
 `;
 
 export const ModalHeader = styled.h1<StyledProps>`
   margin: 0;
   font-weight: 400;
+  font-size: 1.7rem;
   color: ${({ theme }) =>
     theme === "light" ? color.lightMode.title : color.darkMode.title};
   text-align: center;
