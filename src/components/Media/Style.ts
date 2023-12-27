@@ -1,55 +1,59 @@
 import styled from "styled-components";
+import { StyledProps, color } from "../../library";
 
-export const Header = styled.div`
-  display: flex;
-  padding: 20px 30px;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Title = styled.h1`
-  font-weight: 600;
-  font-size: calc(20 / 16 * 1rem);
-  @media screen and (max-width: 390px) {
-    font-size: calc(18 / 16 * 1rem);
-  }
-`;
-
-export const CloseButton = styled.button`
-  top: 10px;
-  right: 10px;
-  border: none;
-  font-size: 0.9rem;
-  position: absolute;
-  background-color: transparent;
-`;
-
-export const Buttons = styled.div`
+export const Buttons = styled.div<StyledProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<StyledProps & { isActive?: boolean }>`
   width: 100%;
-  padding: 5px;
+  padding: 6px;
   font-size: 1rem;
-  font-weight: 500;
-  border-left: none;
-  border-right: none;
-  color: darkgray;
+  border: none;
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.text : color.darkMode.text};
+  margin: 20px 0;
   transition: all 0.2s ease;
   justify-content: space-between;
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  :nth-child(2) {
-    border-right: 1px solid gray;
-    border-left: 1px solid gray;
+  background-color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.border : color.darkGreyDark};
+  border: 1px solid
+    ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkGreyDark};
+
+  ${({ isActive, theme }) =>
+    isActive &&
+    `
+    color: ${theme === "light" ? color.lightMode.title : color.darkMode.title};
+    border: 1px solid ${
+      theme === "light" ? color.lightMode.text : color.darkMode.text
+    };
+  `}
+
+  &:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 1px solid
+      ${({ theme }) =>
+        theme === "light" ? color.lightMode.text : color.darkMode.text};
   }
-  :hover {
-    background-color: #f3f8ff;
+
+  &:nth-child(2) {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 1px solid
+      ${({ theme }) =>
+        theme === "light" ? color.lightMode.text : color.darkMode.text};
   }
+
+  &:hover {
+    border: 1px solid
+      ${({ theme }) =>
+        theme === "light" ? color.lightMode.text : color.darkMode.text};
+  }
+
   @media screen and (max-width: 390px) {
     font-size: 0.85rem;
   }
@@ -58,40 +62,57 @@ export const Button = styled.button`
 // Images
 
 export const Image = styled.img`
-  width: 100px;
+  width: 150px;
 `;
 
 export const Grid = styled.div`
-  max-width: 500px;
   display: grid;
-  padding: 15px;
   gap: 10px;
-  grid-template-columns: repeat(3, 100px);
+  justify-content: center;
+  grid-template-columns: repeat(2, 150px);
 `;
 
 // Files
 
-export const Container = styled.div`
-  max-height: 300px;
-  overflow-y: scroll;
-  max-width: 500px;
-`;
-
-export const Wrapper = styled.div`
+export const FileWrapper = styled.a<StyledProps>`
+  gap: 10px;
   display: flex;
   padding: 10px 20px;
   align-items: center;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid gray;
-`;
-export const FileWrapper = styled.div`
-  display: flex;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid
+    ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkGreyDark};
+
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.text : color.darkMode.text};
+
+  svg {
+    font-size: 1.4rem;
+    color: ${({ theme }) =>
+      theme === "light" ? color.lightMode.title : color.darkMode.title};
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    border-radius: 5px;
+    background-color: ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkGreyDark};
+  }
+
+  &:hover svg {
+    color: ${({ theme }) =>
+      theme === "light" ? color.primary : color.primary};
+  }
 `;
 
 export const FileImage = styled.img`
   width: 25px;
-  margin-right: 15px;
   @media screen and (max-width: 470px) {
     width: 20px;
   }
@@ -99,7 +120,6 @@ export const FileImage = styled.img`
 
 export const FileName = styled.p`
   font-size: 1rem;
-  margin-right: 50px;
   @media screen and (max-width: 470px) {
     width: 100%;
     font-size: 0.8rem;
