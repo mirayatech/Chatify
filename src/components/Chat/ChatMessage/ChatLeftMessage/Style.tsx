@@ -60,7 +60,7 @@ export const LeftReplyMessage = styled.div<StyledProps>`
 `;
 
 export const MessageAvatar = styled.div`
-  position: absolute;
+  position: relative;
 `;
 
 export const LeftMessageTextLink = styled.div<StyledProps>`
