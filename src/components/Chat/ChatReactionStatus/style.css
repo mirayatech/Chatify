@@ -2,7 +2,7 @@
 
 .status__right {
   cursor: pointer;
-  right: 40px;
+  right: 10px;
   bottom: -22px;
   position: absolute;
   border-radius: 30px;
@@ -11,7 +11,7 @@
 
 .status__left-twenty {
   cursor: pointer;
-  left: 40px;
+  left: 10px;
   bottom: -22px;
   position: absolute;
   border-radius: 30px;

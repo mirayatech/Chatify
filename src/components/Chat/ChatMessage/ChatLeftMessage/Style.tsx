@@ -25,7 +25,6 @@ export const LeftMessageImage = styled.div`
 
   .image {
     width: 200px;
-    margin-left: 30px;
   }
 `;
 
@@ -37,7 +36,6 @@ export const LeftReplyMessage = styled.div<StyledProps>`
   align-items: center;
   justify-content: start;
   flex-direction: row-reverse;
-  margin-left: 30px;
 
   > div {
     padding: 10px;
@@ -69,7 +67,6 @@ export const LeftMessageTextLink = styled.div<StyledProps>`
   line-height: 1.5;
   font-size: 1rem;
   max-width: 600px;
-  margin-left: 30px;
   position: relative;
   border-radius: 10px;
   border: 1px solid
@@ -96,7 +93,6 @@ export const LeftMessageFile = styled.a<StyledProps>`
   align-items: center;
   width: 300px;
   text-decoration: none;
-  margin-left: 30px;
   padding: 10px;
   border-radius: 10px;
   color: ${({ theme }) =>
@@ -141,7 +137,6 @@ export const LeftMessageFile = styled.a<StyledProps>`
 
 export const LeftMessageRemoved = styled.div<StyledProps>`
   padding: 10px;
-  margin-left: 30px;
   border-radius: 10px;
   color: ${({ theme }) =>
     theme === "light" ? color.lightMode.text : color.darkMode.text};

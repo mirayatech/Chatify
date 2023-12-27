@@ -167,9 +167,10 @@ export function LeftMessage({
             </button>
           </LeftMessageActions>
         )}
-        {isSelectReactionOpen && (
+        {isSelectReactionOpen && theme && (
           <ChatReactionPopUp
             position="left"
+            theme={theme}
             isOpen={isSelectReactionOpen}
             setIsOpen={setIsSelectReactionOpen}
             messageId={message.id as string}

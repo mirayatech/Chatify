@@ -68,7 +68,6 @@ export const RightMessageTextLink = styled.div<StyledProps>`
 export const RightMessageImage = styled.div`
   gap: 8px;
   display: flex;
-  margin: 35px 0;
   position: relative;
   align-items: center;
   justify-content: end;
@@ -142,7 +141,10 @@ export const RightMessageRemoved = styled.div<StyledProps>`
 export const RightMessageActions = styled.div<StyledProps>`
   transition: all 0.2s ease;
   opacity: 0;
-
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: end;
   @media screen and (max-width: 1024px) {
     opacity: 1;
   }
@@ -155,7 +157,7 @@ export const RightMessageActions = styled.div<StyledProps>`
     border: none;
     margin: 0 5px;
     color: ${({ theme }) =>
-      theme === "light" ? "black" : color.darkMode.text};
+      theme === "light" ? color.lightMode.text : color.darkMode.text};
     font-size: 1.25rem;
     transition: all 0.2s ease;
     background-color: transparent;

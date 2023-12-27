@@ -33,3 +33,7 @@ export const Wrapper = styled.div`
   padding: 0 15px;
   justify-content: space-between;
 `;
+
+export const ReactionImage = styled.img`
+  width: 40px;
+`;

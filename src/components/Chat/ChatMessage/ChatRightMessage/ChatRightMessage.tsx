@@ -146,7 +146,7 @@ export function ChatRightMessage({ message, setReplyInfo }: RightMessageProps) {
           </RightMessageRemoved>
         )}
         {message.type !== "removed" && (
-          <RightMessageActions>
+          <RightMessageActions theme={theme}>
             <button
               onClick={(event) => {
                 setReplyInfo(message);
@@ -172,8 +172,9 @@ export function ChatRightMessage({ message, setReplyInfo }: RightMessageProps) {
             </button>
           </RightMessageActions>
         )}
-        {isSelectReactionOpen && (
+        {isSelectReactionOpen && theme && (
           <ChatReactionPopUp
+            theme={theme}
             position="right"
             isOpen={isSelectReactionOpen}
             setIsOpen={setIsSelectReactionOpen}

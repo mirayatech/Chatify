@@ -33,7 +33,6 @@ import {
   ReplyContainer,
   ReplyTitle,
   ReplyText,
-  Text,
   CloseButton,
 } from "./Style";
 import { useTheme, useUserStore } from "../../../hooks";
@@ -255,7 +254,7 @@ export function ChatInputSection({
     <>
       {fileDragging && (
         <DragFile>
-          <Title>Drop file to send</Title>
+          <Title theme={theme}>Drop file to send</Title>
         </DragFile>
       )}
 
@@ -270,7 +269,7 @@ export function ChatInputSection({
               </p>
             </ReplyTitle>
             {replyInfo.type === "text" ? (
-              <Text theme={theme}>{replyInfo.content}</Text>
+              <ReplyText theme={theme}>{replyInfo.content}</ReplyText>
             ) : replyInfo.type === "image" ? (
               <ReplyText theme={theme}>An image</ReplyText>
             ) : replyInfo.type === "file" ? (

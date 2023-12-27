@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledSpinner = styled.div`
-  z-index: 20;
+  z-index: 5;
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,7 +9,7 @@ export const StyledSpinner = styled.div`
   justify-content: center;
 
   svg {
-    z-index: 1000;
+    z-index: 5;
     color: #4c8bf5;
     font-size: 2rem;
     position: relative;

@@ -25,6 +25,7 @@ import {
   Wrapper,
   Text,
   SelectConversationButton,
+  SelectConversationContainer,
 } from "./Style";
 import { useTheme } from "../../hooks/useTheme";
 import { useUserStore } from "../../hooks";
@@ -132,12 +133,17 @@ export function Sidebar() {
       </StyledNavbar>
 
       {isProfileOpen && theme && (
-        <Profile theme={theme} setProfileOpen={setProfileOpen} />
+        <Profile
+          theme={theme}
+          isOpen={isProfileOpen}
+          setProfileOpen={setProfileOpen}
+        />
       )}
 
       {isConversationModalOpen && theme && (
         <CreateConversation
           theme={theme}
+          isOpen={isConversationModalOpen}
           setConversationModalOpen={setConversationModalOpen}
         />
       )}
@@ -159,7 +165,7 @@ export function Sidebar() {
           </SelectConversationButton>
         </Container>
       ) : (
-        <>
+        <SelectConversationContainer>
           {data?.docs.map((item) => (
             <SelectConversation
               key={item.id}
@@ -168,7 +174,7 @@ export function Sidebar() {
               conversationId={item.id}
             />
           ))}
-        </>
+        </SelectConversationContainer>
       )}
     </StyledSideBar>
   );

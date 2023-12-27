@@ -99,8 +99,8 @@ export const SendButton = styled.button<StyledProps>`
 `;
 
 export const DragFile = styled.div`
-  z-index: 20;
-  width: 100vh;
+  z-index: 5;
+  width: 100vw;
   display: flex;
   height: 100vh;
   position: fixed;
@@ -113,9 +113,10 @@ export const DragFile = styled.div`
   background-color: #3333331b;
 `;
 
-export const Title = styled.div`
+export const Title = styled.div<StyledProps>`
   z-index: 30;
-  color: black;
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.title : color.darkMode.title};
   font-size: calc(30 / 16 * 1rem);
 `;
 
@@ -149,16 +150,4 @@ export const ReplyTitle = styled.div<StyledProps>`
 export const ReplyText = styled.p<StyledProps>`
   color: ${({ theme }) =>
     theme === "light" ? color.lightMode.text : color.darkMode.text};
-`;
-
-export const Text = styled.p<StyledProps>`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: darkgray;
-  max-width: calc(100vw - 420px);
-
-  @media screen and (max-width: 768px) {
-    max-width: calc(100vw - 65px);
-  }
 `;

@@ -4,12 +4,30 @@ import { StyledProps, color } from "../../library";
 export const StyledSideBar = styled.div<StyledProps>`
   width: 100%;
   height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
   border-right: none;
+  position: relative;
   background-color: ${({ theme }) =>
     theme === "light" ? color.lightMode.background : color.darkMode.background};
-  @media screen and (min-width: 768px) {
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) =>
+      theme === "light" ? "darkgray" : color.darkGreyDark};
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkMode.background};
+    border-radius: 0 0 20px 0;
+  }
+  @media screen and (min-width: 869px) {
     width: 350px;
-    height: 100vh;
     border-right: 1px solid
       ${({ theme }) =>
         theme === "light" ? color.lightMode.border : color.darkMode.border};
@@ -17,14 +35,27 @@ export const StyledSideBar = styled.div<StyledProps>`
 `;
 
 export const StyledNavbar = styled.div<StyledProps>`
+  z-index: 2;
   height: 80px;
+  width: 100%;
+  position: fixed;
   display: flex;
   padding: 0 30px;
   align-items: center;
   justify-content: space-between;
+  background-color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.background : color.darkMode.background};
   border-bottom: 1px solid
     ${({ theme }) =>
       theme === "light" ? color.lightMode.border : color.darkMode.border};
+
+  border-right: 1px solid
+    ${({ theme }) =>
+      theme === "light" ? color.lightMode.border : color.darkMode.border};
+
+  @media screen and (min-width: 869px) {
+    width: 350px;
+  }
 `;
 
 export const Wrapper = styled.div<StyledProps>`
@@ -150,6 +181,7 @@ export const PrimaryContainer = styled.div<StyledProps>`
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  margin-top: 80px;
   flex-direction: column;
   justify-content: center;
 `;
@@ -176,4 +208,8 @@ export const SelectConversationButton = styled.button<StyledProps>`
         ? color.lightMode.primaryHoverLight
         : color.darkMode.primaryHoverDark};
   }
+`;
+
+export const SelectConversationContainer = styled.div`
+  margin-top: 80px;
 `;

@@ -6,6 +6,7 @@ import "./style.css";
 import { useUserStore } from "../../../hooks";
 import { firebaseFirestore } from "../../../firebase/firebaseConfig";
 import { REACTIONS_UI } from "../../../library";
+import { ChatReactPopUpContainer } from "./Style";
 
 type ReactionPopupProps = {
   isOpen: boolean;
@@ -13,6 +14,7 @@ type ReactionPopupProps = {
   setIsOpen: (value: boolean) => void;
   messageId: string;
   currentReaction: number;
+  theme: string;
 };
 
 export default function ChatReactionPopUp({
@@ -21,6 +23,7 @@ export default function ChatReactionPopUp({
   setIsOpen,
   messageId,
   currentReaction,
+  theme,
 }: ReactionPopupProps) {
   const { id: conversationId } = useParams();
 
@@ -43,28 +46,25 @@ export default function ChatReactionPopUp({
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
-      <div
+      <ChatReactPopUpContainer
+        theme={theme}
         id="popup"
         className={position === "left" ? "popup__left" : "popup__right"}
       >
         {Object.entries(REACTIONS_UI).map(([key, value], index) => (
-          <div
+          <button
             key={key}
+            onClick={() => {
+              if (index + 1 === currentReaction) updateReaction(0);
+              else updateReaction(index + 1);
+              setIsOpen(!isOpen);
+            }}
             className={index + 1 === currentReaction ? "current-reaction" : ""}
           >
-            <img
-              onClick={() => {
-                if (index + 1 === currentReaction) updateReaction(0);
-                else updateReaction(index + 1);
-                setIsOpen(!isOpen);
-              }}
-              title={key}
-              src={value.gif}
-              alt=""
-            />
-          </div>
+            <img title={key} src={value.gif} alt="" />
+          </button>
         ))}
-      </div>
+      </ChatReactPopUpContainer>
     </ClickAwayListener>
   );
 }
