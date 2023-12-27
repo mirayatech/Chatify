@@ -39,6 +39,9 @@ export const RightMessageContainer = styled.div`
   align-items: center;
   justify-content: end;
   flex-direction: row-reverse;
+  @media screen and (max-width: 480px) {
+    margin: 80px 0;
+  }
 `;
 export const RightMessageTextLink = styled.div<StyledProps>`
   color: #fff;

@@ -14,6 +14,9 @@ export const LeftMessageContainer = styled.div`
   .extraMarginBottom {
     margin-bottom: 20px;
   }
+  @media screen and (max-width: 480px) {
+    margin: 80px 0;
+  }
 `;
 
 export const LeftMessageImage = styled.div`
