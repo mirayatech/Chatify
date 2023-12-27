@@ -2,8 +2,8 @@ import { doc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 
 import toast from "react-hot-toast";
-import { firebaseFirestore } from "../../firebase/firebaseConfig";
 import { useDocumentQuery } from "../../hooks";
+import { firebaseFirestore } from "../../firebase/firebaseConfig";
 type ReplyBadgeProps = {
   messageId: string;
 };
