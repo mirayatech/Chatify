@@ -5,6 +5,8 @@ import { MdGroups, MdInfo } from "react-icons/md";
 
 import { useTheme, useUserStore, useUsersInfo } from "../../../hooks";
 import { ConversationInfoType, IMAGE_PROXY } from "../../../library";
+
+import { ViewMedia } from "../../Media/ViewMedia";
 import {
   Header,
   Wrapper,
@@ -17,9 +19,8 @@ import {
   SettingButton,
   HomeLink,
 } from "./Style";
-import { ChatConversationSettings } from "..";
 import { ChatViewGroup } from "../ChatViewGroup/ChatViewGroup";
-import { ViewMedia } from "../../Media/ViewMedia";
+import { ChatConversationSettings } from "..";
 
 type ChatHeaderProps = {
   conversation: ConversationInfoType;
@@ -38,89 +39,87 @@ export function ChatHeader({ conversation }: ChatHeaderProps) {
 
   return (
     <>
-      {theme && (
-        <Header theme={theme}>
-          <Wrapper>
-            <HomeLink
-              theme={theme}
-              className="mobile__link"
-              to="/"
-              aria-label="Home"
-            >
-              <FaChevronLeft />
-            </HomeLink>
+      <Header theme={theme}>
+        <Wrapper>
+          <HomeLink
+            theme={theme}
+            className="mobile__link"
+            to="/"
+            aria-label="Home"
+          >
+            <FaChevronLeft />
+          </HomeLink>
 
-            {loading ? (
-              <Skeleton variant="circular" width={40} height={40} />
-            ) : (
-              <>
-                {conversation.users.length === 2 ? (
-                  <SingleImage
-                    src={IMAGE_PROXY(filtered?.[0]?.data()?.photoURL)}
-                    alt=""
-                  />
-                ) : (
-                  <>
-                    {conversation?.group?.groupImage ? (
-                      <SingleImage src={conversation.group.groupImage} alt="" />
-                    ) : (
-                      <Relative>
-                        <ImagePrimary
-                          theme={theme}
-                          src={IMAGE_PROXY(filtered?.[0]?.data()?.photoURL)}
-                          alt=""
-                        />
-                        <ImageSecondary
-                          src={IMAGE_PROXY(filtered?.[1]?.data()?.photoURL)}
-                          alt=""
-                        />
-                      </Relative>
-                    )}
-                  </>
-                )}
-              </>
-            )}
-
-            {loading ? (
-              <Skeleton
-                width={100}
-                height={15}
-                variant="rectangular"
-                sx={{ ml: "10px" }}
-              />
-            ) : (
-              <Name theme={theme}>
-                {conversation.users.length > 2 && conversation?.group?.groupName
-                  ? conversation.group.groupName
-                  : filtered
-                      ?.map((user) => user.data()?.displayName)
-                      .slice(0, 3)
-                      .join(", ")}
-              </Name>
-            )}
-          </Wrapper>
-
-          {!loading && (
-            <Wrapper>
-              {conversation.users.length > 2 && (
-                <GroupButton
-                  theme={theme}
-                  onClick={() => setIsGroupMembersOpen(true)}
-                >
-                  <MdGroups />
-                </GroupButton>
+          {loading ? (
+            <Skeleton variant="circular" width={40} height={40} />
+          ) : (
+            <>
+              {conversation.users.length === 2 ? (
+                <SingleImage
+                  src={IMAGE_PROXY(filtered?.[0]?.data()?.photoURL)}
+                  alt=""
+                />
+              ) : (
+                <>
+                  {conversation?.group?.groupImage ? (
+                    <SingleImage src={conversation.group.groupImage} alt="" />
+                  ) : (
+                    <Relative>
+                      <ImagePrimary
+                        theme={theme}
+                        src={IMAGE_PROXY(filtered?.[0]?.data()?.photoURL)}
+                        alt=""
+                      />
+                      <ImageSecondary
+                        src={IMAGE_PROXY(filtered?.[1]?.data()?.photoURL)}
+                        alt=""
+                      />
+                    </Relative>
+                  )}
+                </>
               )}
-
-              <SettingButton
-                theme={theme}
-                onClick={() => setIsConversationSettingsOpen(true)}
-              >
-                <MdInfo />
-              </SettingButton>
-            </Wrapper>
+            </>
           )}
-        </Header>
-      )}
+
+          {loading ? (
+            <Skeleton
+              width={100}
+              height={15}
+              variant="rectangular"
+              sx={{ ml: "10px" }}
+            />
+          ) : (
+            <Name theme={theme}>
+              {conversation.users.length > 2 && conversation?.group?.groupName
+                ? conversation.group.groupName
+                : filtered
+                    ?.map((user) => user.data()?.displayName)
+                    .slice(0, 3)
+                    .join(", ")}
+            </Name>
+          )}
+        </Wrapper>
+
+        {!loading && (
+          <Wrapper>
+            {conversation.users.length > 2 && (
+              <GroupButton
+                theme={theme}
+                onClick={() => setIsGroupMembersOpen(true)}
+              >
+                <MdGroups />
+              </GroupButton>
+            )}
+
+            <SettingButton
+              theme={theme}
+              onClick={() => setIsConversationSettingsOpen(true)}
+            >
+              <MdInfo />
+            </SettingButton>
+          </Wrapper>
+        )}
+      </Header>
 
       {isConversationSettingsOpen && theme && (
         <ChatConversationSettings
@@ -144,8 +143,8 @@ export function ChatHeader({ conversation }: ChatHeaderProps) {
       {isViewMediaOpen && theme && (
         <ViewMedia
           theme={theme}
-          isOpen={isViewMediaOpen}
           setIsOpen={setIsViewMediaOpen}
+          isOpen={isViewMediaOpen}
         />
       )}
     </>

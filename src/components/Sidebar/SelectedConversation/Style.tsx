@@ -14,6 +14,7 @@ export const Flex = styled.div<StyledProps>`
 
 export const Image = styled.img`
   width: 65px;
+  height: 65px;
   border-radius: 50%;
   margin-right: 10px;
 `;

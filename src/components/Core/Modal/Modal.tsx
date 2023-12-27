@@ -1,6 +1,5 @@
 import { Dialog } from "@mui/material";
 import { CloseButton, ModalHeader } from "./Style";
-import ClickAwayListener from "react-click-away-listener";
 import { FiX } from "react-icons/fi";
 import { color } from "../../../library";
 
@@ -25,31 +24,29 @@ export const Modal = ({
   };
 
   return (
-    <ClickAwayListener onClickAway={onClose}>
-      <Dialog
-        onClose={closeModal}
-        open={isOpen}
-        PaperProps={{
-          style: {
-            backgroundColor:
-              theme === "light"
-                ? color.lightMode.background
-                : color.darkMode.background,
+    <Dialog
+      onClose={closeModal}
+      open={isOpen}
+      PaperProps={{
+        style: {
+          backgroundColor:
+            theme === "light"
+              ? color.lightMode.background
+              : color.darkMode.background,
 
-            padding: "30px 10px 10px",
-            minWidth: "320px",
-            maxWidth: "500px",
-            margin: "0 5px",
-            borderRadius: "10px",
-          },
-        }}
-      >
-        <ModalHeader theme={theme}>{title}</ModalHeader>
-        {children}
-        <CloseButton theme={theme} onClick={onClose}>
-          <FiX />
-        </CloseButton>
-      </Dialog>
-    </ClickAwayListener>
+          padding: "30px 10px 10px",
+          minWidth: "320px",
+          maxWidth: "500px",
+          margin: "0 5px",
+          borderRadius: "10px",
+        },
+      }}
+    >
+      <ModalHeader theme={theme}>{title}</ModalHeader>
+      {children}
+      <CloseButton theme={theme} onClick={onClose}>
+        <FiX />
+      </CloseButton>
+    </Dialog>
   );
 };

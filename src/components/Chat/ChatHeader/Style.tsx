@@ -36,6 +36,7 @@ export const HomeLink = styled(Link)<StyledProps>`
 
 export const SingleImage = styled.img`
   width: 40px;
+  height: 40px;
   border-radius: 50%;
 `;
 export const Relative = styled.div`
@@ -49,6 +50,7 @@ export const ImagePrimary = styled.img<StyledProps>`
   left: -30px;
   z-index: 1;
   width: 30px;
+  height: 30px;
   padding: 1px;
   display: flex;
   border-radius: 50%;
@@ -69,6 +71,7 @@ export const ImageSecondary = styled.img`
   top: -19px;
   left: -8px;
   width: 30px;
+  height: 30px;
   border-radius: 50%;
   position: absolute;
 `;
