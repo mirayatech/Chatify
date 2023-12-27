@@ -13,6 +13,7 @@ import { setDoc, doc } from "firebase/firestore";
 const SignIn = lazy(() => import("./pages/SignIn/SignIn"));
 const Home = lazy(() => import("./pages/Home/Home"));
 const Chat = lazy(() => import("./pages/Chat/Chat"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound/PageNotFound"));
 
 export default function App() {
   const { setCurrentUser } = useUserStore();
@@ -78,6 +79,8 @@ export default function App() {
             </Suspense>
           }
         />
+
+        <Route path="/iii" element={<PageNotFound />} />
       </Routes>
     </ThemeProvider>
   );
