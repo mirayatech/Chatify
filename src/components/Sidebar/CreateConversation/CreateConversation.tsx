@@ -25,11 +25,13 @@ import { Modal, Spinner } from "../../Core";
 
 type CreateConversationProps = {
   theme: string;
+  isOpen: boolean;
   setConversationModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export function CreateConversation({
   theme,
+  isOpen,
   setConversationModalOpen,
 }: CreateConversationProps) {
   const [isCreating, setIsCreating] = useState(false);
@@ -99,6 +101,7 @@ export function CreateConversation({
   return (
     <Modal
       theme={theme}
+      isOpen={isOpen}
       onClose={() => setConversationModalOpen(false)}
       title="Create Conversation"
     >

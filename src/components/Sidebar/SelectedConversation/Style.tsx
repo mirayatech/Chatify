@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { color } from "../../../library";
+import styled from "styled-components";
+import { StyledProps, color } from "../../../library";
 
-export const Flex = styled.div`
+export const Flex = styled.div<StyledProps>`
   display: flex;
   height: 100px;
   padding: 15px;
@@ -18,20 +18,20 @@ export const Image = styled.img`
   margin-right: 10px;
 `;
 
-export const Name = styled.p`
+export const Name = styled.p<StyledProps>`
   font-weight: 500;
   padding-bottom: 5px;
   color: ${({ theme }) =>
     theme === "light" ? color.lightMode.title : color.darkMode.title};
 `;
 
-export const LastMessage = styled.p`
+export const LastMessage = styled.p<StyledProps>`
   color: ${({ theme }) =>
     theme === "light" ? color.lightMode.navText : color.darkMode.navText};
   font-size: calc(14 / 16 * 1rem);
 `;
 
-export const Notify = styled.div`
+export const Notify = styled.div<StyledProps>`
   right: 20px;
   font-size: 0.5rem;
   color: ${({ theme }) => (theme === "light" ? color.primary : color.primary)};
@@ -47,7 +47,7 @@ export const Relative = styled.div`
 export const ImagePrimary = styled.img`
   top: -6px;
   left: -40px;
-  z-index: 2;
+  z-index: 1;
   width: 40px;
   padding: 1px;
   display: flex;

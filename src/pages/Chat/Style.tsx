@@ -20,18 +20,12 @@ export const ChatWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const Error = styled.div`
-  flex-grow: 1;
-  display: flex;
-  height: 100vh;
-  text-align: center;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-export const Text = styled.p`
+export const Text = styled.p<StyledProps>`
   font-size: calc(18 / 16 * 1rem);
+  margin: auto;
+  text-align: center;
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.text : color.darkMode.text};
 `;
 
 export const Image = styled.img`
@@ -48,7 +42,8 @@ export const Grow = styled.div`
 `;
 
 export const MobileHide = styled.div`
-  @media screen and (max-width: 868px) {
+  display: none;
+  @media screen and (min-width: 869px) {
     display: block;
   }
 `;

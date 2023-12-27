@@ -13,8 +13,7 @@ export const Wrapper = styled.div`
 
 export const HomeWrapper = styled.div<StyledProps>`
   flex-grow: 1;
-  display: flex;
-  height: 100vh;
+  display: none;
   text-align: center;
   align-items: center;
   flex-direction: column;
@@ -24,7 +23,7 @@ export const HomeWrapper = styled.div<StyledProps>`
       ? color.lightMode.chatBackground
       : color.darkMode.chatBackground};
 
-  @media screen and (max-width: 768px) {
-    display: none;
+  @media screen and (min-width: 869px) {
+    display: flex;
   }
 `;

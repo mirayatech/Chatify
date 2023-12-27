@@ -4,16 +4,18 @@ import { Modal } from "../../Core";
 import { DEFAULT_AVATAR, IMAGE_PROXY } from "../../../library";
 
 type ProfileProps = {
+  isOpen: boolean;
   theme: string;
   setProfileOpen: (value: boolean) => void;
 };
 
-export function Profile({ theme, setProfileOpen }: ProfileProps) {
+export function Profile({ theme, setProfileOpen, isOpen }: ProfileProps) {
   const { currentUser } = useUserStore();
 
   return (
     <Modal
       theme={theme}
+      isOpen={isOpen}
       onClose={() => setProfileOpen(false)}
       title={"Your Profile"}
     >
