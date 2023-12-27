@@ -2,7 +2,14 @@ import { useState } from "react";
 import { IMAGE_PROXY, MessageItemType, REACTIONS_UI } from "../../../library";
 import { useTheme, useUsersInfo } from "../../../hooks";
 import { Modal, Spinner } from "../../Core";
-import { ReactionStatus, User, Name, Image, Wrapper } from "./Style";
+import {
+  ReactionStatus,
+  User,
+  Name,
+  Image,
+  Wrapper,
+  ReactionImage,
+} from "./Style";
 import "./style.css";
 
 type ReactionStatusProps = {
@@ -20,6 +27,7 @@ export function ChatReactionStatus({ message, position }: ReactionStatusProps) {
   const [isReactionStatusOpened, setIsReactionStatusOpened] = useState(false);
 
   const { theme } = useTheme();
+
   return (
     <>
       <ReactionStatus
@@ -60,12 +68,13 @@ export function ChatReactionStatus({ message, position }: ReactionStatusProps) {
         <Modal
           onClose={() => setIsReactionStatusOpened(false)}
           theme={theme}
-          title={"Reactions"}
+          isOpen={isReactionStatusOpened}
+          title="Reactions"
         >
           {loading || error ? (
             <Spinner />
           ) : (
-            <div>
+            <>
               {Object.entries(message.reactions)
                 .filter(([, value]) => value)
                 .map(([key, value]) => (
@@ -86,13 +95,13 @@ export function ChatReactionStatus({ message, position }: ReactionStatusProps) {
                       </Name>
                     </User>
 
-                    <img
+                    <ReactionImage
                       src={Object.values(REACTIONS_UI)[value - 1].icon}
-                      alt=""
+                      alt="reaction"
                     />
                   </Wrapper>
                 ))}
-            </div>
+            </>
           )}
         </Modal>
       )}
