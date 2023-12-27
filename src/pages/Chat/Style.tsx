@@ -18,6 +18,10 @@ export const ChatWrapper = styled.div`
   height: 100vh;
   align-items: stretch;
   flex-direction: column;
+
+  @media screen and (max-width: 480px) {
+    height: 90vh;
+  }
 `;
 
 export const Text = styled.p<StyledProps>`

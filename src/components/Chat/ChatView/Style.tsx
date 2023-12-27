@@ -11,7 +11,7 @@ export const Grow = styled.div`
 
 export const StylesChatView = styled.div<StyledProps>`
   padding: 20px;
-  height: 100vh;
+  height: 100%;
   overflow-y: auto;
 
   &::-webkit-scrollbar {
@@ -46,16 +46,6 @@ export const Image = styled.img`
   @media screen and (max-width: 440px) {
     width: 80px;
   }
-`;
-
-export const Wrapper = styled.div`
-  flex-grow: 1;
-  display: flex;
-  height: 100vh;
-  text-align: center;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 export const MiniWrapper = styled.div`
