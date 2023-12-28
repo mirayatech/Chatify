@@ -4,6 +4,7 @@ import { StyledProps, color } from "../../../library";
 export const Container = styled.div<StyledProps>`
   display: flex;
   padding: 15px 20px;
+  position: relative;
   align-items: center;
   justify-content: center;
   border-top: 1px solid
@@ -13,11 +14,35 @@ export const Container = styled.div<StyledProps>`
     theme === "light" ? color.lightMode.background : color.darkMode.background};
 `;
 
+export const EmojiPicker = styled.div<StyledProps>`
+  position: absolute;
+  bottom: 80px;
+  left: 10px;
+
+  @media screen and (max-width: 869px) {
+    display: none;
+  }
+`;
+
 export const Form = styled.form`
   gap: 1;
   flex-grow: 1;
   display: flex;
   align-items: stretch;
+`;
+export const EmojiButton = styled.button<StyledProps>`
+  border: none;
+  display: flex;
+  padding-right: 15px;
+  font-size: 1.35rem;
+  align-items: center;
+  background: transparent;
+  color: ${({ theme }) =>
+    theme === "light" ? color.lightMode.text : color.darkMode.text};
+
+  @media screen and (max-width: 869px) {
+    display: none;
+  }
 `;
 
 export const ImageButton = styled.button<StyledProps>`

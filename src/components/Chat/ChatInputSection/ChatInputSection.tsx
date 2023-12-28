@@ -15,10 +15,13 @@ import {
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useRef, useState } from "react";
 import { BsFillReplyFill } from "react-icons/bs";
+import { FaRegSmile } from "react-icons/fa";
 import { HiMiniPaperAirplane } from "react-icons/hi2";
 import { ImAttachment } from "react-icons/im";
 import { RiImageAddFill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 import {
   Container,
@@ -34,21 +37,22 @@ import {
   ReplyTitle,
   ReplyText,
   CloseButton,
+  EmojiButton,
+  EmojiPicker,
 } from "./Style";
 import { useTheme, useUserStore } from "../../../hooks";
 import {
   firebaseFirestore,
   firebaseStorage,
 } from "../../../firebase/firebaseConfig";
-import { formatFileName } from "../../../library";
+import { ReplyInfoType, formatFileName } from "../../../library";
 import { Spinner } from "../../Core";
 import toast from "react-hot-toast";
 import { FiX } from "react-icons/fi";
 
 type InputHeaderProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  replyInfo: any;
-  setReplyInfo: React.Dispatch<React.SetStateAction<null>>;
+  replyInfo: ReplyInfoType | null;
+  setReplyInfo: (value: ReplyInfoType | null) => void;
 };
 export function ChatInputSection({
   replyInfo,
@@ -57,6 +61,7 @@ export function ChatInputSection({
   const [inputValue, setInputValue] = useState("");
   const [fileUploading, setFileUploading] = useState(false);
   const [previewFiles, setPreviewFiles] = useState<string[]>([]);
+  const [showEmoji, setShowEmoji] = useState(false);
 
   const { currentUser } = useUserStore();
   const { id: conversationId } = useParams();
@@ -67,6 +72,20 @@ export function ChatInputSection({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [fileDragging, setFileDragging] = useState(false);
+
+  type EmojiEvent = {
+    unified: string;
+  };
+
+  const addEmoji = (emojiEvent: EmojiEvent) => {
+    const unicodeSymbols = emojiEvent.unified.split("_");
+    const codePoints: number[] = [];
+    unicodeSymbols.forEach((symbol) =>
+      codePoints.push(parseInt("0x" + symbol))
+    );
+    const emojiChar = String.fromCodePoint(...codePoints);
+    setInputValue(inputValue + emojiChar);
+  };
 
   const updateTimestamp = () => {
     updateDoc(
@@ -288,6 +307,21 @@ export function ChatInputSection({
         </ReplyContainer>
       )}
       <Container theme={theme}>
+        <EmojiButton theme={theme} onClick={() => setShowEmoji(!showEmoji)}>
+          <FaRegSmile />
+        </EmojiButton>
+        {showEmoji && (
+          <EmojiPicker>
+            <Picker
+              data={data}
+              emojiSize={20}
+              emojiButtonSize={28}
+              onEmojiSelect={addEmoji}
+              maxFrequentRows={0}
+            />
+          </EmojiPicker>
+        )}
+
         <ImageButton
           theme={theme}
           onClick={() => imageInputRef.current?.click()}
