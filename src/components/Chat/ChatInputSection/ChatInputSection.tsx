@@ -318,6 +318,7 @@ export function ChatInputSection({
               emojiButtonSize={28}
               onEmojiSelect={addEmoji}
               maxFrequentRows={0}
+              theme={theme === "light" ? "light" : "dark"}
             />
           </EmojiPicker>
         )}
