@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { useDocumentQuery } from "../../hooks";
 
-import { ConversationInfoType } from "../../library";
+import { ConversationInfoType, ReplyInfoType } from "../../library";
 import { firebaseFirestore } from "../../firebase/firebaseConfig";
 import { useTheme, useUserStore } from "../../hooks";
 import { Grow } from "@mui/material";
@@ -23,7 +23,7 @@ export default function Chat() {
   const conversation = data?.data() as ConversationInfoType;
   const { theme } = useTheme();
   const { currentUser } = useUserStore();
-  const [replyInfo, setReplyInfo] = useState(null);
+  const [replyInfo, setReplyInfo] = useState<ReplyInfoType | null>(null);
 
   return (
     <Wrapper theme={theme}>

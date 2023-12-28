@@ -7,15 +7,19 @@ import { useParams } from "react-router-dom";
 import { useCollectionQuery, useTheme, useUserStore } from "../../../hooks";
 
 import { Grow, Text, MiniWrapper, StylesChatView } from "./Style";
-import { ConversationInfoType, MessageItemType } from "../../../library";
+import {
+  ConversationInfoType,
+  MessageItemType,
+  ReplyInfoType,
+} from "../../../library";
 import { firebaseFirestore } from "../../../firebase/firebaseConfig";
 import { Spinner } from "../../Core";
 import { AvatarFromId, ChatRightMessage, LeftMessage } from "..";
 
 type ChatViewProps = {
   conversation: ConversationInfoType;
-  replyInfo: any;
-  setReplyInfo: (value: any) => void;
+  replyInfo: ReplyInfoType | null;
+  setReplyInfo: (value: ReplyInfoType | null) => void;
 };
 
 export function ChatView({

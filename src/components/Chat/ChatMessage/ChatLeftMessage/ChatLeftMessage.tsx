@@ -8,6 +8,7 @@ import { useTheme, useUserStore } from "../../../../hooks";
 import {
   ConversationInfoType,
   MessageItemType,
+  ReplyInfoType,
   formatDate,
   formatFileSize,
   splitLinkFromMessage,
@@ -37,8 +38,8 @@ type LeftMessageProps = {
   conversation: ConversationInfoType;
   index: number;
   docs: any[];
-  replyInfo: any;
-  setReplyInfo: (value: any) => void;
+  replyInfo: ReplyInfoType | null;
+  setReplyInfo: (value: ReplyInfoType | null) => void;
 };
 
 export function LeftMessage({
@@ -83,7 +84,7 @@ export function LeftMessage({
       <LeftMessageContainer
         onClick={(event) => {
           if (event.detail === 2 && message.type !== "removed") {
-            setReplyInfo(message);
+            setReplyInfo(message as ReplyInfoType);
           }
         }}
       >
@@ -159,7 +160,7 @@ export function LeftMessage({
             </button>
             <button
               onClick={(event) => {
-                setReplyInfo(message);
+                setReplyInfo(message as ReplyInfoType);
                 event.stopPropagation();
               }}
             >

@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { useTheme, useUserStore } from "../../../../hooks";
 import {
   MessageItemType,
+  ReplyInfoType,
   formatDate,
   formatFileSize,
   splitLinkFromMessage,
@@ -29,8 +30,8 @@ import {
 import { IoMdDownload } from "react-icons/io";
 type RightMessageProps = {
   message: MessageItemType;
-  replyInfo: any;
-  setReplyInfo: (value: any) => void;
+  replyInfo: ReplyInfoType | null;
+  setReplyInfo: (value: ReplyInfoType | null) => void;
 };
 
 export function ChatRightMessage({ message, setReplyInfo }: RightMessageProps) {
@@ -89,7 +90,7 @@ export function ChatRightMessage({ message, setReplyInfo }: RightMessageProps) {
       <RightMessageContainer
         onClick={(event) => {
           if (event.detail === 2 && message.type !== "removed") {
-            setReplyInfo(message);
+            setReplyInfo(message as ReplyInfoType);
           }
         }}
       >
@@ -149,7 +150,7 @@ export function ChatRightMessage({ message, setReplyInfo }: RightMessageProps) {
           <RightMessageActions theme={theme}>
             <button
               onClick={(event) => {
-                setReplyInfo(message);
+                setReplyInfo(message as ReplyInfoType);
                 event.stopPropagation();
               }}
             >

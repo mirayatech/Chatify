@@ -53,3 +53,10 @@ export interface MessageItemType {
     [key: string]: number;
   };
 }
+
+export type ReplyInfoType = {
+  id: string;
+  sender: string;
+  type: "text" | "image" | "file" | "removed";
+  content: string;
+};
