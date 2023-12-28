@@ -53,12 +53,13 @@ So far, I'm not really sure if there are any bugs. However, there might be some 
 
 <details>
 <summary><h3> 🎥 - Demo Video </h3></summary>
-<video src="https://github.com/mirayatech/Chatify/assets/71933266/166298f8-72c4-4227-94a2-17023ff7d987" controls="controls" style="max-width: 730px;">
+<video src="https://github.com/mirayatech/Chatify/assets/71933266/c1695a42-8d74-4a00-b89c-e3b6adc4119d" controls="controls" style="max-width: 730px;">
 </video>
 
-<video src="https://github.com/mirayatech/Chatify/assets/71933266/9876c8f7-f2ce-40d6-b0b8-704c5c1e435b" controls="controls">
+<video src="https://github.com/mirayatech/Chatify/assets/71933266/f11d1d9b-2517-4a5c-81df-1711f4182da0" controls="controls">
 </video>
   
+
 </details>
 
 <details>
