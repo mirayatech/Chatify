@@ -37,7 +37,7 @@ export const Modal = ({
           padding: "30px 10px 10px",
           minWidth: "320px",
           maxWidth: "500px",
-          maxHeight: "350px",
+          maxHeight: "50px",
           margin: "0 5px",
           borderRadius: "10px",
         },
